@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Tirthgandhi05/NanoLink-URL-Shortener/main/link-logo.png" alt="NanoLink Logo" width="150">
+  <img src="Logo.png" alt="NanoLink Logo" width="150">
   <h1 align="center">NanoLink - URL Shortener 🚀</h1>
 </div>
 
