@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3214/3214679.png" type="image/x-icon">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <title>NanoLink | URL Shortener</title>
+    
+    <style>
+        /* --- CSS Variables for Easy Theming --- */
+        :root {
+            --primary-color: #4a90e2;
+            --primary-hover: #357ABD;
+            --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --container-bg: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --border-color: #e0e0e0;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* --- General Body & Layout --- */
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+            background: var(--background-gradient);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: min(50rem, 100%);
+            padding: 2.5rem;
+            background-color: var(--container-bg);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        /* --- Form Styling --- */
+        form {
+            margin-top: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        input[type="url"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="url"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            margin-top: 1rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- Shortened URL Result Display --- */
+        .shortenedUrl {
+            margin-top: 2rem;
+        }
+
+        .result-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            padding-left: 1rem;
+        }
+        
+        .result-container input {
+            flex-grow: 1;
+            border: none;
+            background: transparent;
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+            font-size: 1rem;
+            color: var(--text-primary);
+            padding: 0.5rem 0;
+        }
+        .result-container input:focus {
+            outline: none;
+        }
+
+        .copy-btn {
+            padding: 0.6rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        .copy-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* --- Modern Table Styles --- */
+        .tableContainer {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+        
+        td:first-child, th:first-child { text-align: center; }
+        td:last-child, th:last-child { text-align: center; }
+
+        th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f5f7fa;
+        }
+
+        td a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        td:nth-child(2) {
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+        }
+
+    </style>
+</head>
+<body>
+<main class="container">
+    <h1>NanoLink</h1>
+    <form id="urlShortenerForm" method="post" action="/url">
+        <label for="originalUrl">Enter a long URL to shorten:</label>
+        <input placeholder="https://www.example.com/long/path/to/something" type="url" id="originalUrl" name="url" required>
+        <button type="submit">Shorten URL</button>
+    </form>
+    
+    <% if (locals.id) { %>
+        <div class="shortenedUrl">
+            <label for="shortenedUrlOutput">Your short link is ready!</label>
+            <div class="result-container">
+                <input id="shortenedUrlOutput" type="text" value="http://localhost:8000/<%= id %>" readonly>
+                <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+            </div>
+        </div>
+    <% } %>
+    
+    <% if(locals.urls && urls.length > 0){ %>
+        <div class="tableContainer">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Short ID</th>
+                        <th>Redirect Link</th>
+                        <th>Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% urls.forEach((url, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><a href="/<%= url.shortID %>" target="_blank"><%= url.shortID %></a></td>
+                        <td><%= url.redirectURL %></td>
+                        <td><%= url.visitHistory.length %></td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    <% } %>
+</main>
+
+<script>
+    function copyToClipboard() {
+        const urlInput = document.getElementById('shortenedUrlOutput');
+        const copyButton = document.querySelector('.copy-btn');
+        
+        // Select the text
+        urlInput.select();
+        urlInput.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(urlInput.value);
+
+        // Provide feedback
+        copyButton.textContent = 'Copied!';
+        setTimeout(() => {
+            copyButton.textContent = 'Copy';
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
